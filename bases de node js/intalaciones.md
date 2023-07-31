@@ -4,3 +4,5 @@ npm i color --save-dev
 
 #  formas de  desistalar paquetes
 npm uninstall colors
+
+npm i yargs --save

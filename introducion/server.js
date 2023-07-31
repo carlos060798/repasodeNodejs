@@ -1,12 +1,19 @@
-// levantamiento del servidor 
-const express = require("express");
-const app = express();
-const port = 5000;
+const http = require('http')
 
-app.get("/", (req, res) => {
-    res.send("hello world");
-});
+const hostname = '127.0.0.1'
+const port = 3000
 
-app.listen(port, () => {
-    console.log("listo! 🚀");
-});
+const server = http.createServer((req, res) => {
+  res.statusCode = 200
+  res.setHeader('Content-Type', 'text/plain')
+  res.end('Hello World\n')
+})
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`)
+})
+
+/*
+Cada vez que se recibe una nueva solicitud, se llama al requesteventohttp.IncomingMessage ,
+ proporcionando dos objetos: una solicitud (un objeto) y una respuesta (un http.ServerResponseobjeto)
+*/
