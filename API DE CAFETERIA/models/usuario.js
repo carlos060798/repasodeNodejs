@@ -20,7 +20,7 @@ const UsuarioSchema = new Schema({
   img: {
     type: String,
   },
-  roles: {
+  rol: {
     type: String,
     required: true,
     enum: ["ADMIN_ROLE", "USER_ROLE"],
@@ -34,7 +34,13 @@ const UsuarioSchema = new Schema({
     default: false,
   },
 });
+// funcion para eliminar del retorno el __v y password
+UsuarioSchema.methods.toJSON = function () {
+  const {__v
+, password,...usuario  } = this.toObject();
+  return usuario;
+}
 
-const Usuario = mongoose.model("Usuario", UsuarioSchema);
+ export default mongoose.model("Usuario", UsuarioSchema);
 
-export default Usuario;
+

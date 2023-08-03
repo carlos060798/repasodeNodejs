@@ -1,12 +1,13 @@
 import express from 'express';
 import bycscript from 'bcryptjs';
-import Usuario from '../models/usuario.js';
+import Usuario from '../models/Usuario.js';
+
 
 
 const CrearUsuario = async (req, res) => {
  
    const {nombre,correo,password,roles} = req.body;
-   const User= new Usuario({nombre,correo,password,roles});
+   const User= new Usuarioio({nombre,correo,password,roles});
    // validacion de datos
 
    // validar correo
