@@ -6,8 +6,8 @@ import Usuario from '../models/Usuario.js';
 
 const CrearUsuario = async (req, res) => {
  
-   const {nombre,correo,password,roles} = req.body;
-   const User= new Usuarioio({nombre,correo,password,roles});
+   const {nombre,correo,password,rol} = req.body;
+   const User= new Usuario({nombre,correo,password,rol});
    // validacion de datos
 
    // validar correo

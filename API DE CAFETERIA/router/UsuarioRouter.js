@@ -2,7 +2,7 @@ import express from "express";
 import { CrearUsuario } from "../controller/UsuarioController.js";
 import { check } from "express-validator";
 import validaciones from "../middlewares/authData.js";
-import { isROLE,Emailexiste } from "../helpers/db-valideitor.js";
+import { isROLE } from "../helpers/db-valideitor.js";
 
 
 const router = express.Router();

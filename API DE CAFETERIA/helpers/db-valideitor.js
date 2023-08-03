@@ -12,5 +12,5 @@ const isROLE=async (rol = "") => {
 
 export{
     isROLE,
-    Emailexiste
+    
 }
