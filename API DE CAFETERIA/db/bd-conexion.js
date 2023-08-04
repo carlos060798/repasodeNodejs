@@ -1,18 +1,29 @@
-
-
 import mongoose from 'mongoose'
-const DB = async() => {
-    try {
-        await mongoose.connect(process.env.BDURL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        })
-        console.log("Base de datos online")
-    } catch (error) {
-        console.log(error)
-        throw new Error("Error al iniciar la base de datos")
-    }
+
+
+
+// Opciones de configuración de la conexión
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  // Agregar la opción writeConcern con un objeto válido
+  // Puedes usar "majority" o cualquier otro nivel de garantía de escritura válido para tu configuración
+  // En este ejemplo, se utilizará "majority"
+  writeConcern: {
+    w: 'majority',
+    wtimeout: 0,
+    provenance: 'clientSupplied'
+  }
+};
+
+// Conectar a la base de datos
+const DB=()=>{mongoose.connect(process.env.BDURL, options)
+  .then(() => {
+    console.log('Conexión exitosa a la base de datos');
+  })
+  .catch((error) => {
+    console.error('Error al conectar a la base de datos:', error);
+  });
 }
 
-
-export default DB
+export default DB;

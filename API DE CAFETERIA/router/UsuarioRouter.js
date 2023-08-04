@@ -1,5 +1,5 @@
 import express from "express";
-import { CrearUsuario } from "../controller/UsuarioController.js";
+import { CrearUsuario, ModificarUsuario } from "../controller/UsuarioController.js";
 import { check } from "express-validator";
 import validaciones from "../middlewares/authData.js";
 import { isROLE } from "../helpers/db-valideitor.js";
@@ -24,5 +24,12 @@ router.post(
 );
 
 router.get("/");
+
+// rutas del crud
+
+router.put("/:id",[
+    check("id", "No es un ID valido").isMongoId(),
+    validaciones
+],ModificarUsuario);
 
 export default router;

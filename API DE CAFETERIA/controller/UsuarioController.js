@@ -39,6 +39,40 @@ const CrearUsuario = async (req, res) => {
     }
 }
 
+
+const ModificarUsuario = async (req, res) => {
+    const { id } = req.params;
+    const { password, ...resto } = req.body;
+
+    // Validar contra base de datos
+    if (password) {
+        const salt = bycscript.genSaltSync();
+        resto.password = bycscript.hashSync(password, salt);
+    }
+
+    try {
+        const updatedUser = await Usuario.findByIdAndUpdate(id, resto, { new: true });
+
+        if (!updatedUser) {
+            return res.status(404).json({
+                msg: "Usuario no encontrado"
+            });
+        }
+
+        res.status(200).json({
+            msg: "Usuario modificado correctamente",
+            updatedUser
+        });
+    } catch (error) {
+        res.status(500).json({
+            msg: "Error al modificar el usuario",
+            error
+        });
+    }
+}
+
+
 export{
-    CrearUsuario
+    CrearUsuario,
+    ModificarUsuario
 }
