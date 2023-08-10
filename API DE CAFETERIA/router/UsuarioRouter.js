@@ -1,5 +1,5 @@
 import express from "express";
-import { CrearUsuario, ModificarUsuario } from "../controller/UsuarioController.js";
+import { CrearUsuario, ListarUsuarios, ModificarUsuario } from "../controller/UsuarioController.js";
 import { check } from "express-validator";
 import validaciones from "../middlewares/authData.js";
 import { isROLE } from "../helpers/db-valideitor.js";
@@ -23,7 +23,7 @@ router.post(
   CrearUsuario
 );
 
-router.get("/");
+router.get("/",ListarUsuarios);
 
 // rutas del crud
 

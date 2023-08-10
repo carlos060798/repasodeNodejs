@@ -3,7 +3,7 @@ import bycscript from 'bcryptjs';
 import Usuario from '../models/Usuario.js';
 
 
-
+// crear usuario
 const CrearUsuario = async (req, res) => {
  
    const {nombre,correo,password,rol} = req.body;
@@ -39,7 +39,7 @@ const CrearUsuario = async (req, res) => {
     }
 }
 
-
+// modificar usuario
 const ModificarUsuario = async (req, res) => {
     const { id } = req.params;
     const { password, ...resto } = req.body;
@@ -71,8 +71,38 @@ const ModificarUsuario = async (req, res) => {
     }
 }
 
+// listar usuarios
+ const  ListarUsuarios = async (req, res) => {
+
+   /* LISTAR TODOS LOS USUARIOS
+   const  usuarios = await Usuario.find();
+   */
+    /* LISTAR USUARIOS POR PAGINAS 
+    await Usuario.find({ estado: true}) // listar solo los usuarios con estado true
+    const { limite = 3, desde = 1 } = req.query;
+
+     contar usuarios
+
+    const totalUsuarios = await Usuario.countDocuments({ estado: true})
+    const  usuarios = await Usuario.find({ estado: true}).skip(Number(desde)).limit(Number(limite));
+    */
+
+    // retornar respuesta deforma simultania las promesas y recortar tiempos de respuesta
+    const { limite = 3, desde = 1 } = req.query;
+
+    const [totalUsuarios,usuarios] = await Promise.all([
+        Usuario.countDocuments({ estado: true}),
+        Usuario.find({ estado: true}).skip(Number(desde)).limit(Number(limite))
+    ])
+
+    res.status(200).json({
+        usuarios,
+        totalUsuarios
+    });
+ }
 
 export{
     CrearUsuario,
-    ModificarUsuario
+    ModificarUsuario,
+    ListarUsuarios
 }
